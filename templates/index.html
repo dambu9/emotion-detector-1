@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<div class="container" style="padding:10px">
+    <div class="row">
+        <div class="col-lg-8">
+		<form method="post" action="{{ url_for('tasks') }}">
+			<!--<input type="submit" value="Stop/Start" name="stop" />
+			<input type="submit" value="Capture" name="click"/>
+			<input type="submit" value="Grey" name="grey" />
+			<input type="submit" value="Negative" name="neg" />-->
+			<input type="submit" value="takeimage" name="face" />
+			<input type="submit" class="btn btn-secondary" value="Capture" name="click"/>
+			<input type="submit" class="btn btn-secondary" value="Monitor My Stress" name="rec" />
+			</form>
+            <img src="{{ url_for('video_feed') }}" height="80%">
+		</div>
+			<div class="embed-responsive embed-responsive-21by9">
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/RoIYAoAalmI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			</div>
+    </div>
+</div>
+</body>
+</html>
