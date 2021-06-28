@@ -3,66 +3,87 @@
 Emotion Analysis
 {% endblock %}
 {% block content %}
-  
-  <!-- Hero Section -->
-  <section class="hero container container-pall">
-    <div class="hero__image">
-      <img 
-           src="/static/images/analysis-1841158_1920.jpg" 
-           alt="Hero Image" 
-           class="hero__illustration-image" 
-           draggable="false">
+<script type="text/javascript">
+  // Select Body Element (Both Is Good)
+  // const body = document.querySelector('.body');
+  const body = document.body;
+
+  // Select Header
+  const header = document.querySelector('.header');
+
+  // Select Toggle-Menu Element
+  const toggleMenu = document.querySelector('.toggle-menu');
+
+  // When Click On Toggle-Menu Element Call Function [OpenMenu]
+  toggleMenu.addEventListener('click', openMenu);
+
+  // Open-Menu Function
+  function openMenu() {
+    // If The Header Contains Class (header--active)
+    if (header.classList.contains('header--active')) {
+      // Remove Class (header--active) From Header
+      header.classList.remove('header--active');
+      // Remove Class (body--noscroll) From Body
+      body.classList.remove('body--noscroll');
+    } else { // Else
+      // Add Class (header--active) On Header
+      header.classList.add('header--active');
+      // Add Class (body--noscroll) On Body
+      body.classList.add('body--noscroll');
+    };
+  };
+  var countdown;
+  function startStopCaptureImage(e) {
+    e.preventDefault();
+    if($("#startStopBtn").html() === "Stop Monitor My Stress"){
+      $("#startStopBtn").html("Monitor My Stress");
+    }else{
+      $("#startStopBtn").html("Stop Monitor My Stress");
+    let interval = 5;
+    countdown = window.setInterval(() => {
+      interval--;
+      if (interval === 0) {
+        clearInterval(countdown);
+      } else {
+        //alert("test");
+        $.ajax({
+          type: "POST",
+          dataType: "json",
+          //data: { 'name': 'Payam' },
+          url: "/snaptakeimage",
+          success: function (data) {
+           
+          }
+        });
+      }
+    }, 10000);
+    }
+  }
+
+  function stopCaptureImage() {
+    window.clearInterval(countdown);
+  }
+  // (:
+</script>
+<!-- Hero Section -->
+<section class="hero container container-pall">
+  <div class="hero__image">
+    <img src="/static/images/analysis-1841158_1920.jpg" alt="Hero Image" class="hero__illustration-image"
+      draggable="false">
+  </div>
+
+  <div class="hero__text">
+    <h1 class="hero__heading">Emotion tracking. Powerful reporting.</h1>
+    <p class="hero__description">
+      Turn on to productivity
+      with Emotion tracker.
+    </p>
+    <p class="hero__description">Do you want to figure out your emotion? Well, what are you waiting for</p>
+    <div class="center">
+      <button id="startStopBtn" type="button" class="btn btn-primary" onclick="startStopCaptureImage(event)">Monitor My Stress</button>
     </div>
-  
-    <div class="hero__text">
-      <h1 class="hero__heading">Emotion tracking. Powerful reporting.</h1>
-      <p class="hero__description">
-        Turn on to productivity 
-        with Emotion tracker.
-      </p>
-      <p class="hero__description">Do you want to figure out your emotion? Well, what are you waiting for</p>
-      <div class="center">
-        <form action="/takeimage" method="post">
-            <button type="submit" class="btn btn-primary">Monitor My Stress</button>
-        </form>
-        <form action="/takeimage" method="post">
-          <button type="submit" class="btn btn-primary">Stop Monitor My Stress</button>
-      </form>
-      </div>
-    </div>
-  </section>
+  </div>
+</section>
 
 {% endblock %}
-  <script>
-// Select Body Element (Both Is Good)
-// const body = document.querySelector('.body');
-const body = document.body;
-
-// Select Header
-const header = document.querySelector('.header');
-
-// Select Toggle-Menu Element
-const toggleMenu = document.querySelector('.toggle-menu');
-
-// When Click On Toggle-Menu Element Call Function [OpenMenu]
-toggleMenu.addEventListener('click', openMenu);
-
-// Open-Menu Function
-function openMenu() {
-  // If The Header Contains Class (header--active)
-  if(header.classList.contains('header--active')) {
-    // Remove Class (header--active) From Header
-    header.classList.remove('header--active');
-    // Remove Class (body--noscroll) From Body
-    body.classList.remove('body--noscroll');
-  } else { // Else
-    // Add Class (header--active) On Header
-    header.classList.add('header--active');
-    // Add Class (body--noscroll) On Body
-    body.classList.add('body--noscroll');
-  };
-};
-
-// (:
-      </script>
-  <!-- End Hero Section -->
+<!-- End Hero Section -->

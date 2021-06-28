@@ -1,4 +1,6 @@
 # Let us import the Libraries required.
+from Graphical_Visualisation import Emotion_Analysis
+from camera import VideoCamera
 import os
 import cv2
 import urllib
@@ -9,12 +11,14 @@ from flask import Flask, render_template, Response, request, redirect, flash, ur
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
+from flask import jsonify, make_response
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///emotionanalysis.db'
 app.config['SECRET_KEY'] = 'ec9439cfc6c796ae2029594d'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
+
 
 class EmtotionAnalysis(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
@@ -28,7 +32,8 @@ class EmtotionAnalysis(db.Model):
     link = db.Column(db.String(length=1024), nullable=True)
 
     def __repr__(self):
-        return f'EmtotionAnalysis {self.image}'     
+        return f'EmtotionAnalysis {self.image}'
+
 
 class ImageAnalysis(db.Model):
     imageid = db.Column(db.Integer(), primary_key=True)
@@ -42,11 +47,10 @@ class ImageAnalysis(db.Model):
     Surprise = db.Column(db.Float())
 
     def __repr__(self):
-        return f'ImageAnalysis {self.id}'           
+        return f'ImageAnalysis {self.id}'
+
 
 # Importing the required Classes/Functions from Modules defined.
-from camera import VideoCamera
-from Graphical_Visualisation import Emotion_Analysis
 
 ###################################################################################
 # We define some global parameters so that its easier for us to tweak when required.
@@ -83,43 +87,42 @@ def allowed_file(filename):
 ###################################################################################
 
 def mood(result):
-    if result=="Happy":
+    if result == "Happy":
         return 'Since you are happy, lets keep up the good mood with some amazing music!'
-    elif result=="Sad":
+    elif result == "Sad":
         return 'It seems that you are having a bad day, lets cheer you up with some amazing music!'
-    elif result=="Disgust":
+    elif result == "Disgust":
         return 'It seems something has got you feeling disgusted. Lets improve your mood with some great music!'
-    elif result=="Neutral":
-         return 'It seems like a normal day. Lets turn it into a great one with some amazing music!'
-    elif result=="Fear":
+    elif result == "Neutral":
+        return 'It seems like a normal day. Lets turn it into a great one with some amazing music!'
+    elif result == "Fear":
         return 'You seem very scared. We are sure that some music will help!'
-    elif result=="Angry":
+    elif result == "Angry":
         return 'You seem angry. Listening to some music will surely help you calm down!'
-    elif result=="Surprise":
+    elif result == "Surprise":
         return 'You seem surprised! Hopefully its some good news. Lets celebrate it with some great music!'
 
 
 def provide_url(result):
-    if result=="Happy":
+    if result == "Happy":
         return 'https://open.spotify.com/playlist/1BVPSd4dynzdlIWehjvkPj'
-    elif result=="Sad":
+    elif result == "Sad":
         return 'https://www.writediary.com/ '
-    elif result=="Disgust":
+    elif result == "Disgust":
         return 'https://open.spotify.com'
-    elif result=="Neutral":
-         return 'https://www.netflix.com/'
-    elif result=="Fear":
+    elif result == "Neutral":
+        return 'https://www.netflix.com/'
+    elif result == "Fear":
         return 'https://www.youtube.com/watch?v=KWt2-lUpg-E'
-    elif result=="Angry":
+    elif result == "Angry":
         return 'https://www.onlinemeditation.org/'
-    elif result=="Surprise":
+    elif result == "Surprise":
         return 'https://www.google.com/search?q=hotels+near+me&oq=hotels+&aqs=chrome.1.69i57j0i433i457j0i402l2j0i433l4j0l2.3606j0j7&sourceid=chrome&ie=UTF-8'
 
 
 def activities(result):
     if result == "Happy":
         return '• Try out some dance moves'
-
 
     elif result == "Sad":
         return '• Write in a journal'
@@ -136,7 +139,6 @@ def activities(result):
     elif result == "Angry":
         return '• Do meditation'
 
-
     elif result == "Surprise":
         return '• Give yourself a treat' \
 
@@ -148,12 +150,13 @@ def Start():
 
     return render_template('Start.html')
 
+
 @app.route('/')
 @app.route('/about')
 def about():
     """ Renders the Home Page """
 
-    return render_template('about.html')
+    return render_template('about.html', monitoringFlag=True)
 
 
 @app.route('/video_feed')
@@ -172,12 +175,12 @@ def RealTime():
     return render_template('RealTime.html')
 
 
-@app.route('/takeimage', methods=['POST'])
-def takeimage():
+@app.route('/snaptakeimage', methods=['POST'])
+def snapTakeimage():
     """ Captures Images from WebCam, saves them, does Emotion Analysis & renders. """
 
     v = VideoCamera()
-    
+
     _, frame = v.video.read()
     save_to = "static/"
     cv2.imwrite(save_to + "capture" + ".jpg", frame)
@@ -186,16 +189,54 @@ def takeimage():
 
     # When Classifier could not detect any Face.
     if len(result) == 1:
-        return render_template('NoDetection.html', orig=result[0])
+        response = jsonify(
+         monitoringFlag="False"
+        )
+        return response
+        # return render_template('NoDetection.html', orig=result[0])
 
     sentence = mood(result[3])
     activity = activities(result[3])
     link = provide_url(result[3])
-    
+
     emotion_analysis_to_create = EmtotionAnalysis(orig=result[0], pred=result[1], bar=result[2], music=result[3],
-                           sentence=sentence, activity=activity, image=result[3], link=link)
+                                                  sentence=sentence, activity=activity, image=result[3], link=link)
     db.session.add(emotion_analysis_to_create)
     db.session.commit()
+
+    response = jsonify(
+        monitoringFlag="False"
+    )
+    return response
+    # return render_template('Visual.html', orig=result[0], pred=result[1], bar=result[2], music=result[3],
+    #                       sentence=sentence, activity=activity, image=result[3], link=link)
+
+
+@app.route('/takeimage', methods=['POST'])
+def takeimage():
+    """ Captures Images from WebCam, saves them, does Emotion Analysis & renders. """
+
+    v = VideoCamera()
+
+    _, frame = v.video.read()
+    save_to = "static/"
+    cv2.imwrite(save_to + "capture" + ".jpg", frame)
+
+    result = Emotion_Analysis("capture.jpg")
+
+    # When Classifier could not detect any Face.
+    if len(result) == 1:
+         return render_template('NoDetection.html', orig=result[0])
+
+    sentence = mood(result[3])
+    activity = activities(result[3])
+    link = provide_url(result[3])
+
+    emotion_analysis_to_create = EmtotionAnalysis(orig=result[0], pred=result[1], bar=result[2], music=result[3],
+                                                  sentence=sentence, activity=activity, image=result[3], link=link)
+    db.session.add(emotion_analysis_to_create)
+    db.session.commit()
+
     return render_template('Visual.html', orig=result[0], pred=result[1], bar=result[2], music=result[3],
                            sentence=sentence, activity=activity, image=result[3], link=link)
 
@@ -238,7 +279,6 @@ def uploadimage():
 
             # When Classifier could not detect any Face.
             if len(result) == 1:
-
                 return render_template('NoDetection.html', orig=result[0])
 
             sentence = mood(result[3])
@@ -281,7 +321,8 @@ def imageurl():
 def trackmyInfo():
     """ Fetches Image from URL Provided, does Emotion Analysis & renders."""
     imageanalysis = ImageAnalysis.query.all()
-    return render_template('tracking.html', bar="bar_plotcapture.jpg", imageanalysis=imageanalysis)                           
+    return render_template('tracking.html', bar="bar_plotcapture.jpg", imageanalysis=imageanalysis)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,4 +1,5 @@
 # Let us import the Libraries required.
+from operator import ne
 import os
 import cv2
 import numpy as np
@@ -130,20 +131,35 @@ def Emotion_Analysis(img):
                     "Neutral", "Sad",
                     "Surprise"]
 
+        # List of Emotions
+        NEW_EMOTIONS = [ "Happy",
+                    "Neutral", "Other"]            
+
         # Finding the Probability of each Emotion
         preds = test_model.return_probabs(roi[np.newaxis, :, :, np.newaxis])
 
         # Converting the array into list
         data = preds.tolist()[0]
 
-        
+        happy_prop = 0
+        neutral_prop = 0
+        other = 0
+        for i in range(0,len(data)):
+            if i == 4:
+                happy_prop = data[i]
+            elif i == 5:
+                neutral_prop = data[i]
+            else:
+                other += other
+
+        new_cordinates = [happy_prop, neutral_prop, other]
 
         # Initializing the Figure for Bar Graph
         plt.switch_backend('Agg')
         fig = plt.figure(figsize=(8, 5))
 
         # Creating the bar plot
-        plt.bar(EMOTIONS, data, color='green',
+        plt.bar(NEW_EMOTIONS, new_cordinates, color='green',
                 width=0.4)
 
         # Labelling the axes and title

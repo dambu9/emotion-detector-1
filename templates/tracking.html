@@ -5,12 +5,20 @@ Emotion Analysis
 {% block content %}
 <div class="container-fluid">
       <div class="row .shadow-2-strong">
-          <div class="col-md-8">
+          <!--<div class="col-md-8">
             <div id="graph-container" style="width:1000px;height:570px;padding-top:10px;"></div>
+        </div>-->
+        <div class="col-md-6">
+            <h3  style="color:black" >Input Image</h3>
+            <img src="/static/images/capture.jpg" alt="Original" style="width:400px;height:500px;">
         </div>
-        <div class="col-md-4">
-            <div style="padding:20px;" >
-              <img src="/static/{{bar}}" alt="Visualisation" style="width:400px;height:570px;padding-top:10px;"/>
+        <div class="col-md-6">
+            <h3  style="color:black">Prediction</h3>
+            <img src="/static/images/pred_capture.jpg" alt="Prediction" style="width:400px;height:500px;">
+        </div>
+        <div class="col-md-8">
+            <div style="padding:5px;" >
+              <img src="/static/images/{{bar}}" alt="Visualisation"/>
             </div>
         </div>
         <div class="col-md-12">
@@ -18,14 +26,10 @@ Emotion Analysis
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Angry</th>
                     <th scope="col">Happy</th>
-                    <th scope="col">Sad</th>
                     <th scope="col">Neutral</th>
-                    <th scope="col">Surprise</th>
-                    <th scope="col">Disgust</th>
-                    <th scope="col">Fear</th>
-                  </tr>
+                    <th scope="col">Other</th>
+                   </tr>
                 </thead>
                 <tbody>
                     <tbody>
@@ -33,16 +37,9 @@ Emotion Analysis
                         {% for image in imageanalysis %}
                             <tr>
                                 <td>{{ image.imageid }}</td>
-                                <td>{{ "%.2f"|format(image.Angry*100) }}</td>
                                 <td>{{ "%.2f"|format(image.Happy*100)}}</td>
-                                <td>{{ "%.2f"|format(image.Sad*100)}}</td>
                                 <td>{{ "%.2f"|format(image.Neutral*100)}}</td>
-                                <td>{{ "%.2f"|format(image.Surprise*100)}}</td>
-                                <td>{{ "%.2f"|format(image.Disgust*100) }}</td>
-                                <td>{{ "%.2f"|format(image.Fear*100) }}</td>
-                                <td>
-                                    <button class="btn btn-outline btn-info">More Info</button>
-                                </td>
+                                <td>{{ "%.2f"|format(image.Angry*100 +image.Surprise*100 + image.Sad*100 + image.Disgust*100 + image.Fear*100) }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
