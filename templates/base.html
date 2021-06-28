@@ -1,0 +1,58 @@
+<!doctype html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>
+      {% block title %}
+
+      {% endblock %}
+  </title>
+    <!-- MDB icon -->
+    <link rel="icon" href="./img/mdb-favicon.ico" type="image/x-icon" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+    />
+    <!-- MDB -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mdb.min.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}"/>
+    <header class="header container container-pall">
+      <nav class="nav flex flex-jc-sp flex-ai-c">
+        <a class="header__logo" href="{{ url_for('about') }}">Emotion Tracking</a>
+    
+        <div class="toggle-menu flex hide-for-desktop" tabindex="0" role="button">
+          <div class="toggle-menu__dots">
+            <span class="toggle-menu__dot"></span>
+            <span class="toggle-menu__dot"></span>
+            <span class="toggle-menu__dot"></span>
+            <span class="toggle-menu__dot"></span>
+          </div>
+    
+          <span class="toggle-menu__text">Menu</span>
+        </div>
+    
+        <ul class="menu flex">
+          <li class="menu__item"><a href="{{ url_for('about') }}" class="menu__link">Home</a></li>
+          <li class="menu__item"><a href="{{ url_for('Start') }}" class="menu__link">Information</a></li>
+          <li class="menu__item"><a href="{{ url_for('RealTime') }}" class="menu__link">Manage My Stress</a></li>
+          <li class="menu__item"><a href="{{ url_for('trackmyInfo') }}" class="menu__link">My Information</a></li>
+        </ul>
+      </nav>
+    </header>
+    <body>
+      {% block content %}
+
+      {% endblock %}
+      <!-- Future Content here -->
+    </body>
+     
+  </head>
+  
+</html>
+

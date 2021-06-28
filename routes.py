@@ -6,13 +6,47 @@ import numpy as np
 from werkzeug.utils import secure_filename
 from urllib.request import Request, urlopen
 from flask import Flask, render_template, Response, request, redirect, flash, url_for
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///emotionanalysis.db'
+app.config['SECRET_KEY'] = 'ec9439cfc6c796ae2029594d'
+db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
+
+class EmtotionAnalysis(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    orig = db.Column(db.String(length=1024), nullable=True)
+    pred = db.Column(db.String(length=1024), nullable=True)
+    bar = db.Column(db.String(length=1024), nullable=True)
+    music = db.Column(db.String(length=1024), nullable=True)
+    sentence = db.Column(db.String(length=1024), nullable=True)
+    activity = db.Column(db.String(length=1024), nullable=True)
+    image = db.Column(db.String(length=1024), nullable=True)
+    link = db.Column(db.String(length=1024), nullable=True)
+
+    def __repr__(self):
+        return f'EmtotionAnalysis {self.image}'     
+
+class ImageAnalysis(db.Model):
+    imageid = db.Column(db.Integer(), primary_key=True)
+    details = db.Column(db.String(length=1024), nullable=True)
+    Angry = db.Column(db.Float())
+    Disgust = db.Column(db.Float())
+    Fear = db.Column(db.Float())
+    Happy = db.Column(db.Float())
+    Neutral = db.Column(db.Float())
+    Sad = db.Column(db.Float())
+    Surprise = db.Column(db.Float())
+
+    def __repr__(self):
+        return f'ImageAnalysis {self.id}'           
 
 # Importing the required Classes/Functions from Modules defined.
 from camera import VideoCamera
 from Graphical_Visualisation import Emotion_Analysis
-
-# Let us Instantiate the app
-app = Flask(__name__)
 
 ###################################################################################
 # We define some global parameters so that its easier for us to tweak when required.
@@ -107,11 +141,19 @@ def activities(result):
         return '• Give yourself a treat' \
 
 
-@app.route('/')
+
+@app.route('/home_page')
 def Start():
     """ Renders the Home Page """
 
     return render_template('Start.html')
+
+@app.route('/')
+@app.route('/about')
+def about():
+    """ Renders the Home Page """
+
+    return render_template('about.html')
 
 
 @app.route('/video_feed')
@@ -123,7 +165,7 @@ def video_feed():
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
-@app.route('/RealTime', methods=['POST'])
+@app.route('/RealTime')
 def RealTime():
     """ Video streaming (Real Time Image from WebCam Video) home page."""
 
@@ -148,6 +190,11 @@ def takeimage():
     sentence = mood(result[3])
     activity = activities(result[3])
     link = provide_url(result[3])
+    
+    emotion_analysis_to_create = EmtotionAnalysis(orig=result[0], pred=result[1], bar=result[2], music=result[3],
+                           sentence=sentence, activity=activity, image=result[3], link=link)
+    db.session.add(emotion_analysis_to_create)
+    db.session.commit()
     return render_template('Visual.html', orig=result[0], pred=result[1], bar=result[2], music=result[3],
                            sentence=sentence, activity=activity, image=result[3], link=link)
 
@@ -228,6 +275,12 @@ def imageurl():
     return render_template('Visual.html', orig=result[0], pred=result[1], bar=result[2], music=result[3],
                            sentence=sentence, activity=activity, image=result[3], link=link)
 
+
+@app.route('/trackmyInfo')
+def trackmyInfo():
+    """ Fetches Image from URL Provided, does Emotion Analysis & renders."""
+    imageanalysis = ImageAnalysis.query.all()
+    return render_template('tracking.html', bar="bar_plotcapture.jpg", imageanalysis=imageanalysis)                           
 
 if __name__ == '__main__':
     app.run(debug=True)

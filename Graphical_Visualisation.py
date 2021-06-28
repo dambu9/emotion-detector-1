@@ -2,8 +2,17 @@
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-
 from model import FacialExpressionModel
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
+
+app = Flask(__name__)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///emotionanalysis.db'
+app.config['SECRET_KEY'] = 'ec9439cfc6c796ae2029594d'
+db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
 
 # Creating an instance of the class with the parameters as model and its weights.
 test_model = FacialExpressionModel("model.json", "model_weights.h5")
@@ -11,6 +20,19 @@ test_model = FacialExpressionModel("model.json", "model_weights.h5")
 # Loading the classifier from the file.
 facec = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
+class ImageAnalysis(db.Model):
+    imageid = db.Column(db.Integer(), primary_key=True)
+    details = db.Column(db.String(length=1024), nullable=True)
+    Angry = db.Column(db.Float())
+    Disgust = db.Column(db.Float())
+    Fear = db.Column(db.Float())
+    Happy = db.Column(db.Float())
+    Neutral = db.Column(db.Float())
+    Sad = db.Column(db.Float())
+    Surprise = db.Column(db.Float())
+
+    def __repr__(self):
+        return f'ImageAnalysis {self.id}' 
 
 def Emotion_Analysis(img):
     """ It does prediction of Emotions found in the Image provided, does the 
@@ -91,7 +113,9 @@ def Emotion_Analysis(img):
 
         # Converting the array into list
         data = preds.tolist()[0]
-
+        image_analysis_to_create = ImageAnalysis(details=str(list(zip(EMOTIONS, emotionsList))), Angry=data[0], Disgust=data[1], Fear=data[2], Happy=data[3], Neutral=data[4], Sad=data[5], Surprise=data[6])
+        db.session.add(image_analysis_to_create)
+        db.session.commit()
         # Initializing the Figure for Bar Graph
         plt.switch_backend('Agg')
         fig = plt.figure(figsize=(8, 5))

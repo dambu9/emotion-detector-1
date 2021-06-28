@@ -8,7 +8,30 @@ import urllib
 
 # To use the model saved in the Json format, We are importing "model_from_json"
 from tensorflow.keras.models import model_from_json
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 
+app = Flask(__name__)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///emotionanalysis.db'
+app.config['SECRET_KEY'] = 'ec9439cfc6c796ae2029594d'
+db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
+
+class ImageAnalysis(db.Model):
+    imageid = db.Column(db.Integer(), primary_key=True)
+    details = db.Column(db.String(length=1024), nullable=True)
+    Angry = db.Column(db.Float())
+    Disgust = db.Column(db.Float())
+    Fear = db.Column(db.Float())
+    Happy = db.Column(db.Float())
+    Neutral = db.Column(db.Float())
+    Sad = db.Column(db.Float())
+    Surprise = db.Column(db.Float())
+
+    def __repr__(self):
+        return f'ImageAnalysis {self.id}' 
 
 def mood(result):
     if result=="Happy":
@@ -33,7 +56,7 @@ def Emotion_Analysis(img):
     Graphical visualisation, saves as Images and returns them """
 
     # Read the Image through OpenCv's imread()
-    path = '/Users/yashwanthreddy/Downloads/EmotionChecker2/static/images/' + str(img)
+    path = 'static/images/' + str(img)
     image = cv2.imread(path)
 
     # Convert the Image into Gray Scale
@@ -93,7 +116,7 @@ def Emotion_Analysis(img):
         cv2.circle(image, (xc, yc), radius, (0, 255, 0), Thickness)
 
         # Saving the Predicted Image
-        predictedImagePath = "/Users/yashwanthreddy/Downloads/EmotionChecker2/static/images/pred_" + str(img)
+        predictedImagePath = "static/images/pred_" + str(img)
         cv2.imwrite(predictedImagePath, image)
         plt.gray()
         plt.imshow(image)
@@ -113,6 +136,8 @@ def Emotion_Analysis(img):
         # Converting the array into list
         data = preds.tolist()[0]
 
+        
+
         # Initializing the Figure for Bar Graph
         plt.switch_backend('Agg')
         fig = plt.figure(figsize=(8, 5))
@@ -131,9 +156,13 @@ def Emotion_Analysis(img):
             emotionsList.append(round(100*data[i],2))
         
         print(str(list(zip(EMOTIONS, emotionsList))))
+        image_info= list(zip(EMOTIONS, emotionsList))
+        image_analysis_to_create = ImageAnalysis(details=str(list(zip(EMOTIONS, emotionsList))), Angry=data[0], Disgust=data[1], Fear=data[2], Happy=data[3], Neutral=data[4], Sad=data[5], Surprise=data[6])
+        db.session.add(image_analysis_to_create)
+        db.session.commit()
 
         # Saving the Bar Plot
-        path = "/Users/yashwanthreddy/Downloads/EmotionChecker2/static/images/" + "bar_plot" + str(img)
+        path = "static/images/" + "bar_plot" + str(img)
         plt.savefig(path)
        
     # Returns a list containing the names of Original, Predicted, Bar Plot Images
@@ -177,10 +206,10 @@ class FacialExpressionModel(object):
 
 
 # Creating an instance of the class with the parameters as model and its weights.
-test_model = FacialExpressionModel("/Users/yashwanthreddy/Downloads/EmotionChecker2/model.json", "/Users/yashwanthreddy/Downloads/EmotionChecker2/model_weights.h5")
+test_model = FacialExpressionModel("model.json", "model_weights.h5")
 
 # Loading the classifier from the file.
-facec = cv2.CascadeClassifier('/Users/yashwanthreddy/Downloads/EmotionChecker2/haarcascade_frontalface_default.xml')
+facec = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 #####Main
 captureJpeg = 'capture.jpg'

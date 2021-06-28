@@ -1,11 +1,9 @@
-<html>
-
-<head>
-  <meta charset="UTF-8">
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap" rel="stylesheet">
-  <link href="static/style.css" rel=" stylesheet">
-
-  <style>
+{% extends 'base.html' %}
+{% block title %}
+Real Time Image Capture
+{% endblock %}
+{% block content %}
+ <style>
     .center {
       display: flex;
       justify-content: center;
@@ -58,31 +56,21 @@
 
     }
   </style>
-
-  <title>Real Time Image Capture</title>
-
-</head>
-
-<body>
-  <div class="banner-text">
-    <div class="animation-area background-color=black">
-
-      <h1 style="color:white">Capturing your Image</h1>
-
-      <img style="margin-top:20px;"src="{{ url_for('video_feed') }}"> <br>
-
-      <h3 style="color:white">Do you want to figure out your emotion? Well, what are you waiting for</h3>
-
-      <div class="center">
-        <form action="/takeimage" method="post">
-          <input type="submit" name="Click the Photo" value="Click an Image" class="button" />
-        </form>
-      </div>
-
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8">
+      <img class="img-thumbnail" src="{{ url_for('video_feed') }}">
     </div>
-
-  </div>
-
-</body>
-
-</html>
+    <div class="col-md-6">
+      <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group mr-2" role="group" aria-label="First group">
+          <button type="button" class="btn btn-primary">Stop/Start</button>
+          <button type="button" class="btn btn-primary">Capture</button>
+          <button type="button" class="btn btn-primary">Monitor My Stress</button>
+        </div>
+      </div>
+    </div>
+    </div>
+</div>
+{% endblock %}
+<!-- Optional JavaScript; choose one of the two! -->

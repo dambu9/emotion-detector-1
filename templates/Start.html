@@ -1,125 +1,79 @@
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap" rel="stylesheet">
-  <link href="static/style.css" rel="stylesheet">
-  <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <style>
-    body{
-      margin:0;
-      padding:0;
-
-    }
-    .center {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 200px;
-
-    }
-
-    img {
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    h1 {
-      text-align: center;
-      color: white
-    }
-
-    h3 {
-      text-align: center;
-      color: white;
-    }
-
-    p {
-      text-align: center;
-    }
-
-    div {
-      text-align: center;
-
-    }
-
-    .mySlides {
-      display: none;
-    }
-
-    .button {
-      margin-top:20px;
-      background-color: #6f1c03;
-      border: none;
-      color: white;
-      padding: 15px 32px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      cursor: pointer;
-
-    }
-  </style>
-
-  <title>Facial Emotion Investigator</title>
-
-</head>
-
-<body>
-
-  <!--Heading section-->
-  <div class="a" style="background-color:black;margin-top:0;position:relative;">
-    <div class="container"></div>
-    <h1>REAL TIME EMOTION DETECTION USING DEEP LEARNING</h1><br><br>
-    <img src="static\photo-1585507252242-11fe632c26e8.jfif" alt="centered image">
+{% extends 'base.html' %}
+{% block title %}
+Welcome to Jim Shaped Coding Market
+{% endblock %}
+{% block content %}
+<div class="row">
+  <!--<div class="card mb-3" style="max-width: 800px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <iframe width="300" height="220" src="https://www.youtube.com/embed/RoIYAoAalmI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">
+            This is a wider card with supporting text below as a natural lead-in to
+            additional content. This content is a little bit longer.
+          </p>
+          <p class="card-text">
+            <small class="text-muted">Last updated 3 mins ago</small>
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <!--Real time section-->
-  <div style="display:flex;flex-direction:column; align-items:center;
-  justify-content:center;
-  text-align:center;">
-    <div class="a" style="background-color:black; height: 100vh;width:100%;display:flex;flex-direction:column; align-items:center;
-    justify-content:center;text-align:center;">
-    <div class="a .container-sm" style="height: 70vh;width:70%;display:flex;flex-direction:column; align-items:center;
-    justify-content:center;text-align:center;background-color:white;margin:30px;color:black">
-    <p style="font-size:xx-large;padding-bottom:50px;" >Real time image</p>
-    <p style="font-size:x-large;padding-bottom:20px;">To detect your emotion using the webcam feed</p>
-    <form action="/RealTime" method="post">
-      <input type="submit" name="Real Time Image" value="Real Time Image" class="button" />
-    </form>
- 
-</div>
+  <div class="card mb-3" style="max-width: 500px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img
+          src="https://mdbootstrap.com/wp-content/uploads/2020/06/vertical.jpg"
+          alt="..."
+          class="img-fluid"
+        />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">
+            This is a wider card with supporting text below as a natural lead-in to
+            additional content. This content is a little bit longer.
+          </p>
+          <p class="card-text">
+            <small class="text-muted">Last updated 3 mins ago</small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="card mb-3" style="max-width: 500px;">
+      <div class="card-body">
+        <h5 class="card-title">Real time image</h5>
+        <p class="card-text">
+          To detect your emotion using the webcam feed
+        </p>
+        <form action="/RealTime" method="post">
+          <input type="submit" name="Real Time Image" value="Real Time Image" class="button" />
+        </form>
+      </div>
+    </div>
+</div>-->
+<div class="card">
+  <iframe src="https://www.youtube.com/embed/RoIYAoAalmI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <div class="card-body">
+    <h5 class="card-title">Yoga for the Eyes - 1 Minute Eye Strain Relief Exercise</h5>
+    <p class="card-text">Meredith Amann from the UC Health Integrative Medicine team demonstrates a 1 minute yoga exercise to relieve eye strain.</p>
+    <a href="#" class="btn btn-primary">More Information</a>
   </div>
 </div>
-    
 
-  <script>
-    var myIndex = 0;
-    carousel();
-
-    function carousel() {
-      var i;
-      var x = document.getElementsByClassName("mySlides");
-      for (i = 0; i < x.length; i++) {
-        x[i].style.display = "none";
-      }
-      myIndex++;
-      if (myIndex > x.length) { myIndex = 1 }
-      x[myIndex - 1].style.display = "block";
-      setTimeout(carousel, 2000); // Change image every 2 seconds
-    }
-
-  </script>
-</body>
-
-</html>
+<div class="card">
+  <iframe src="https://www.youtube.com/embed/UP1WpOa82R4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <div class="card-body">
+    <h5 class="card-title">Yoga for the Eyes - 1 Minute Eye Strain Relief Exercise</h5>
+    <p class="card-text">Meredith Amann from the UC Health Integrative Medicine team demonstrates a 1 minute yoga exercise to relieve eye strain.</p>
+    <a href="#" class="btn btn-primary">More Information</a>
+  </div>
+</div>
+{% endblock %}
+<!-- Optional JavaScript; choose one of the two! -->
