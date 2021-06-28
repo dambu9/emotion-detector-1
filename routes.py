@@ -177,6 +177,7 @@ def takeimage():
     """ Captures Images from WebCam, saves them, does Emotion Analysis & renders. """
 
     v = VideoCamera()
+    
     _, frame = v.video.read()
     save_to = "static/"
     cv2.imwrite(save_to + "capture" + ".jpg", frame)

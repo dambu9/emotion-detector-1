@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}"/>
     <header class="header container container-pall">
       <nav class="nav flex flex-jc-sp flex-ai-c">
-        <a class="header__logo" href="{{ url_for('about') }}">Emotion Tracking</a>
+        <a class="header__logo" href="{{ url_for('about') }}">Stress Monitoring System</a>
     
         <div class="toggle-menu flex hide-for-desktop" tabindex="0" role="button">
           <div class="toggle-menu__dots">
@@ -42,9 +42,8 @@
     
         <ul class="menu flex">
           <li class="menu__item"><a href="{{ url_for('about') }}" class="menu__link">Home</a></li>
-          <li class="menu__item"><a href="{{ url_for('Start') }}" class="menu__link">Information</a></li>
-          <li class="menu__item"><a href="{{ url_for('RealTime') }}" class="menu__link">Manage My Stress</a></li>
-          <li class="menu__item"><a href="{{ url_for('trackmyInfo') }}" class="menu__link">My Information</a></li>
+          <li class="menu__item"><a href="{{ url_for('Start') }}" class="menu__link">Aid for Recovery</a></li>
+          <li class="menu__item"><a href="{{ url_for('trackmyInfo') }}" class="menu__link">Analytics</a></li>
         </ul>
       </nav>
     </header>

@@ -23,17 +23,17 @@ Emotion Analysis
       <p class="hero__description">Do you want to figure out your emotion? Well, what are you waiting for</p>
       <div class="center">
         <form action="/takeimage" method="post">
-            <button type="submit" class="btn btn-primary">Capture My Emotion</button>
+            <button type="submit" class="btn btn-primary">Monitor My Stress</button>
         </form>
+        <form action="/takeimage" method="post">
+          <button type="submit" class="btn btn-primary">Stop Monitor My Stress</button>
+      </form>
       </div>
     </div>
   </section>
 
 {% endblock %}
   <script>
-      // Design By (Metehan Kaya)
-// Figma: https://www.figma.com/community/file/876455506114947378
-
 // Select Body Element (Both Is Good)
 // const body = document.querySelector('.body');
 const body = document.body;
