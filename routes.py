@@ -205,7 +205,7 @@ def snapTakeimage():
     db.session.commit()
 
     response = jsonify(
-        monitoringFlag="False"
+        monitoringFlag="False",activity=activity, emotion_Type= result[3]
     )
     return response
     # return render_template('Visual.html', orig=result[0], pred=result[1], bar=result[2], music=result[3],

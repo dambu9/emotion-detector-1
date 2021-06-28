@@ -33,33 +33,59 @@ Emotion Analysis
     };
   };
   var countdown;
+  var activity;
+  var emotion_Type;
   function startStopCaptureImage(e) {
     e.preventDefault();
-    if($("#startStopBtn").html() === "Stop Monitor My Stress"){
+    if ($("#startStopBtn").html() === "Stop Monitor My Stress") {
       $("#startStopBtn").html("Monitor My Stress");
-    }else{
+    } else {
       $("#startStopBtn").html("Stop Monitor My Stress");
-    let interval = 5;
-    countdown = window.setInterval(() => {
-      interval--;
-      if (interval === 0) {
-        clearInterval(countdown);
-      } else {
-        //alert("test");
-        $.ajax({
-          type: "POST",
-          dataType: "json",
-          //data: { 'name': 'Payam' },
-          url: "/snaptakeimage",
-          success: function (data) {
-           
-          }
-        });
-      }
-    }, 10000);
+      registerEvent();
     }
   }
-
+  function registerEvent(){
+    let interval = 5;
+      countdown = window.setInterval(() => {
+        interval--;
+        if (interval === 0) {
+          clearInterval(countdown);
+          if (activity != undefined) {
+            $('#exampleModalCenter').on('show.bs.modal', function (event) {
+              // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+              // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+              var modal = $(this)
+              if(emotion_Type == 'Happy' || emotion_Type == 'Neutral'){
+                modal.find('.modal-body').text("Seems like you are doing well but still do you want moment of break");
+              }else if(emotion_Type != 'Happy' && emotion_Type != 'Neutral'){
+                modal.find('.modal-body').text("Seems like your stress levels are high! Do you want moment of break/relaxation");
+              }  
+            });
+            $("#exampleModalCenter").modal("show");
+          }else{
+            registerEvent();
+          }
+        } else {
+          //alert("test");
+          $.ajax({
+            type: "POST",
+            dataType: "json",
+            //data: { 'name': 'Payam' },
+            url: "/snaptakeimage",
+            success: function (data) {
+              if (activity == null && data.activity != null) {
+                activity = data.activity;
+                emotion_Type = data.emotion_Type;
+              }
+              else if (data != undefined && data.activity != undefined && activity != data.activity) {
+                activity = data.activity;
+                emotion_Type = data.emotion_Type;
+              }
+            }
+          });
+        }
+      }, 10000);
+  }
   function stopCaptureImage() {
     window.clearInterval(countdown);
   }
@@ -80,7 +106,8 @@ Emotion Analysis
     </p>
     <p class="hero__description">Do you want to figure out your emotion? Well, what are you waiting for</p>
     <div class="center">
-      <button id="startStopBtn" type="button" class="btn btn-primary" onclick="startStopCaptureImage(event)">Monitor My Stress</button>
+      <button id="startStopBtn" type="button" class="btn btn-primary" onclick="startStopCaptureImage(event)">Monitor My
+        Stress</button>
     </div>
   </div>
 </section>
