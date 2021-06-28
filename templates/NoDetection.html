@@ -57,20 +57,14 @@ Real Time Image Capture
     }
   </style>
 <div class="container-fluid">
-  <div class="row">
+    <div class="row">
     <div class="col-md-8">
-      <img class="img-thumbnail" src="{{ url_for('video_feed') }}">
-    </div>
-    <div class="col-md-6">
-      <div class="container btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-        <div class="btn-group mr-2" role="group" aria-label="First group">
-          <button type="button" class="btn btn-primary">Stop/Start</button>
-          <button type="button" class="btn btn-primary">Capture</button>
+        <p class="hero__description">We couldn't able to detect your emotion!! Do you want to try again?</p>
+        <div class="center">
           <form action="/takeimage" method="post">
-            <button type="submit" class="btn btn-primary">Monitor My Stress</button>
+              <button type="submit" class="btn btn-primary">Capture My Emotion</button>
           </form>
         </div>
-      </div>
     </div>
     </div>
 </div>

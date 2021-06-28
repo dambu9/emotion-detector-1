@@ -113,7 +113,7 @@ def Emotion_Analysis(img):
 
         # Converting the array into list
         data = preds.tolist()[0]
-        image_analysis_to_create = ImageAnalysis(details=str(list(zip(EMOTIONS, emotionsList))), Angry=data[0], Disgust=data[1], Fear=data[2], Happy=data[3], Neutral=data[4], Sad=data[5], Surprise=data[6])
+        image_analysis_to_create = ImageAnalysis(details=str(list(zip(EMOTIONS, data))), Angry=data[0], Disgust=data[1], Fear=data[2], Happy=data[3], Neutral=data[4], Sad=data[5], Surprise=data[6])
         db.session.add(image_analysis_to_create)
         db.session.commit()
         # Initializing the Figure for Bar Graph
