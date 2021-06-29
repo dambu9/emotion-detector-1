@@ -33,13 +33,13 @@
   }
   
   .container {
-    max-width: 1200px;
+    max-width: 1500px;
     margin: auto;
   }
   
   /* Spacing Rules */
   .container-pall { /* all */
-    padding: 0.875rem 0.5625rem;
+    padding: 0.875rem 4.5625rem;
   }
   
   .container-py { /* y-axis */
@@ -96,7 +96,8 @@
   /* End General Styles */
   
   .header {
-    height: var(--header-height);
+    background-color: #d71e2b;
+    border-bottom: 4px solid #fcc60a;
   }
   
   .nav {

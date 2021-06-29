@@ -34,12 +34,20 @@ class ImageAnalysis(db.Model):
     def __repr__(self):
         return f'ImageAnalysis {self.id}' 
 
+def new_values(result):
+    if result=="Happy":
+        return 'Happy'
+    elif result=="Neutral":
+         return 'Neutral'
+    else :
+        return 'Anxiety'
+
 def Emotion_Analysis(img):
     """ It does prediction of Emotions found in the Image provided, does the 
     Graphical visualisation, saves as Images and returns them """
 
     # Read the Image through OpenCv's imread()
-    path = "static/" + str(img)
+    path = "static/images/" + str(img)
     image = cv2.imread(path)
 
     # Convert the Image into Gray Scale
@@ -79,7 +87,7 @@ def Emotion_Analysis(img):
 
 
         # Defining the Parameters for putting Text on Image
-        Text = str(prediction) + Symbols[str(prediction)]
+        Text = str(new_values(prediction)) + Symbols[str(prediction)]
         Text_Color = (180, 105, 255)
 
         Thickness = 2
@@ -99,7 +107,7 @@ def Emotion_Analysis(img):
         cv2.circle(image, (xc, yc), radius, (0, 255, 0), Thickness)
 
         # Saving the Predicted Image
-        path = "static/" + "pred" + str(img)
+        path = "static/images/" + "pred" + str(img)
         cv2.imwrite(path, image)
 
         # List of Emotions
@@ -108,9 +116,29 @@ def Emotion_Analysis(img):
                     "Neutral", "Sad",
                     "Surprise"]
 
+         # List of Emotions
+        NEW_EMOTIONS = [ "Happy",
+                    "Neutral", "Stress/Anxiety"]            
+
         # Finding the Probability of each Emotion
         preds = test_model.return_probabs(roi[np.newaxis, :, :, np.newaxis])
 
+        # Converting the array into list
+        data = preds.tolist()[0]
+
+        happy_prop = 0
+        neutral_prop = 0
+        other = 0
+        for i in range(0,len(data)):
+            if i == 4:
+                happy_prop = data[i]
+            elif i == 5:
+                neutral_prop = data[i]
+            else:
+                other += other
+
+        new_cordinates = [happy_prop, neutral_prop, other]
+        
         # Converting the array into list
         data = preds.tolist()[0]
         print(str(data))
@@ -122,7 +150,7 @@ def Emotion_Analysis(img):
         fig = plt.figure(figsize=(8, 5))
 
         # Creating the bar plot
-        plt.bar(EMOTIONS, data, color='green',
+        plt.bar(NEW_EMOTIONS, new_cordinates, color='green',
                 width=0.4)
 
         # Labelling the axes and title
@@ -131,7 +159,7 @@ def Emotion_Analysis(img):
         plt.title("Facial Emotion Recognition")
 
         # Saving the Bar Plot
-        path = "static/" + "bar_plot" + str(img)
+        path = "static/images/" + "bar_plot" + str(img)
         plt.savefig(path)
        
     # Returns a list containing the names of Original, Predicted, Bar Plot Images

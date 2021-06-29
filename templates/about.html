@@ -71,7 +71,7 @@ Emotion Analysis
             type: "POST",
             dataType: "json",
             //data: { 'name': 'Payam' },
-            url: "/snaptakeimage",
+            url: "/takeimage",
             success: function (data) {
               if (activity == null && data.activity != null) {
                 activity = data.activity;
@@ -84,7 +84,7 @@ Emotion Analysis
             }
           });
         }
-      }, 10000);
+      }, 50000);
   }
   function stopCaptureImage() {
     window.clearInterval(countdown);

@@ -182,7 +182,7 @@ def snapTakeimage():
     v = VideoCamera()
 
     _, frame = v.video.read()
-    save_to = "static/"
+    save_to = "static/images/"
     cv2.imwrite(save_to + "capture" + ".jpg", frame)
 
     result = Emotion_Analysis("capture.jpg")
@@ -205,7 +205,7 @@ def snapTakeimage():
     db.session.commit()
 
     response = jsonify(
-        monitoringFlag="False",activity=activity, emotion_Type= result[3]
+        monitoringFlag="False",activity=activity, emotion_Type=result[3]
     )
     return response
     # return render_template('Visual.html', orig=result[0], pred=result[1], bar=result[2], music=result[3],
@@ -217,9 +217,8 @@ def takeimage():
     """ Captures Images from WebCam, saves them, does Emotion Analysis & renders. """
 
     v = VideoCamera()
-
     _, frame = v.video.read()
-    save_to = "static/"
+    save_to = "static/images/"
     cv2.imwrite(save_to + "capture" + ".jpg", frame)
 
     result = Emotion_Analysis("capture.jpg")
@@ -301,7 +300,7 @@ def imageurl():
     webpage = urlopen(req).read()
     arr = np.asarray(bytearray(webpage), dtype=np.uint8)
     img = cv2.imdecode(arr, -1)
-    save_to = "static/"
+    save_to = "static/images/"
     cv2.imwrite(save_to + "url.jpg", img)
 
     result = Emotion_Analysis("url.jpg")

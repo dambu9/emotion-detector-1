@@ -50,6 +50,13 @@ def mood(result):
     elif result=="Surprise":
         return 'You seem surprised! Hopefully its some good news. Lets celebrate it with some great music!'
 
+def new_values(result):
+    if result=="Happy":
+        return 'Happy'
+    elif result=="Neutral":
+         return 'Neutral'
+    else :
+        return 'Anxiety'
 
 
 def Emotion_Analysis(img):
@@ -92,12 +99,13 @@ def Emotion_Analysis(img):
         Symbols = {"Happy": ":)", "Sad": ":}", "Surprise": "!!",
                    "Angry": "?", "Disgust": "#", "Neutral": ".", "Fear": "~"}
     
+        
 
         ## based on the prediction recommend music
 
 
         # Defining the Parameters for putting Text on Image
-        Text = str(prediction) + Symbols[str(prediction)]
+        Text = str(new_values(prediction)) + Symbols[str(prediction)]
         Text_Color = (180, 105, 255)
 
         Thickness = 2
@@ -133,7 +141,7 @@ def Emotion_Analysis(img):
 
         # List of Emotions
         NEW_EMOTIONS = [ "Happy",
-                    "Neutral", "Other"]            
+                    "Neutral", "Anxiety"]            
 
         # Finding the Probability of each Emotion
         preds = test_model.return_probabs(roi[np.newaxis, :, :, np.newaxis])
