@@ -118,7 +118,7 @@ def Emotion_Analysis(img):
 
          # List of Emotions
         NEW_EMOTIONS = [ "Happy",
-                    "Neutral", "Stress/Anxiety"]            
+                    "Neutral", "Anxiety/Stress"]            
 
         # Finding the Probability of each Emotion
         preds = test_model.return_probabs(roi[np.newaxis, :, :, np.newaxis])
@@ -130,9 +130,9 @@ def Emotion_Analysis(img):
         neutral_prop = 0
         other = 0
         for i in range(0,len(data)):
-            if i == 4:
+            if i == 3:
                 happy_prop = data[i]
-            elif i == 5:
+            elif i == 4:
                 neutral_prop = data[i]
             else:
                 other += other
