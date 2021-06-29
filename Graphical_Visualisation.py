@@ -135,7 +135,7 @@ def Emotion_Analysis(img):
             elif i == 4:
                 neutral_prop = data[i]
             else:
-                other += other
+                other += data[i]
 
         new_cordinates = [happy_prop, neutral_prop, other]
         
