@@ -4,53 +4,135 @@ Emotion Analysis
 {% endblock %}
 {% block content %}
 <!-- Hero Section -->
+
 <section class="hero container container-pall">
-  <div class="hero__image" style="width:600px;">
-    <figure class="highcharts-figure">
-      <div id="container"></div>
+  <div class="hero__image" style="width:50%;">
+    <div class="row">
+      <div class="col-md-3 metric">
+        <div class="metric-inner">
+          <header class="metric-header">
+            <h1 class="metric-title">Happiness Index</h1>
+          </header>
       
-    </figure>
-    <div class="MT15">
-      <!--<h4 class="tplhead" style="margin-bottom:5px;"><b>Metrics</b></h4>-->
-      <table cellpadding="0" cellspacing="0" width="70%" class="table">
-        <tbody>
-          <tr>
-            <td>No Of Users Opted Suggestion</td>
-            <td><b>30.03%</b></td>
-          </tr>
-          <tr>
-            <td><span class="txt10">No Of Users Monitoring</span></td>
-            <td><b>30000</b></td>
-          </tr>
-          <tr>
-            <td><span class="txt10">Avg Relaxation Break</span></td>
-            <td><b>15 Min</b></td>
-          </tr>
-          <tr>
-            <td><span class="txt10">Opted Recovery Aid</span></td>
-            <td><b>Agree - 80%</b></td>
-          </tr>
-        </tbody>
-      </table>
+          <div class="metric-body viz-basic-with-7-and-40-day-comparison">
+            <div class="value">
+              <div class="current-value">
+                <h1 class="primary-value">78%</h1>
+              </div>
+              <div class="comparison_wrapper">
+                <div class="left_comparison">
+                  <h4><b>Individual Level</b></h4>
+                  <h3 class="green">&#9650; 77.5%</h3>
+                  <h4>Rollup 7 days</h4>
+                </div>
+                <div class="right_comparison">
+                  <h4><b>Org Level</b></h4>
+                  <h3 class="green divider">&#9650; 80%</h3>
+                  <h4 class="divider">Rollup 7 days</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 metric">
+        <div class="metric-inner">
+          <header class="metric-header">
+            <h1 class="metric-title">High Stress Window</h1>
+          </header>
+          <div class="metric-body viz-basic-with-7-and-40-day-comparison">
+            <div class="value">
+              <div class="current-value">
+                <h1 class="primary-value">3-4 PM</h1>
+              </div>
+              <div class="comparison_wrapper">
+                <div class="primary-value">
+                  <h3><b>Rollup 7 days</b></h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--<div class="comparison_wrapper" style="margin-top: 38px;margin-left: 15px;">
+            <div class="left_comparison">
+              <h1 class="primary-value" style="
+              color: #5bc1de;
+          ">Wed 3-4 PM</h1>
+            </div>
+            <div class="right_comparison">
+              <h1 class="primary-value" style="
+              color: #5bc1de;
+          ">Thr 7-8 PM</h1
+            </div>-->
+            
+        </div>
+      </div>
+      <div class="col-md-3 metric">
+        <div class="metric-inner">
+          <header class="metric-header-1">
+            <h1 class="metric-title">Users Actively Monitoring Stress</h1>
+          </header>
+      
+          <div class="metric-body viz-basic-with-7-and-40-day-comparison">
+            <div class="value">
+              <div class="current-value">
+                <h1 class="primary-value">3000</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 metric">
+        <div class="metric-inner">
+          <header class="metric-header">
+            <h1 class="metric-title">Recovering Aid Today</h1>
+          </header>
+      
+          <div class="metric-body viz-basic-with-7-and-40-day-comparison">
+            <div class="value">
+              <div class="current-value">
+                <h1 class="primary-value">500</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    
     </div>
 
-
-
-  </div>
-
   <div class="hero__text">
-    <h1 class="hero__heading">Stress tracking. Powerful reporting.</h1>
+    <p class="hero__description">Stress has become a significant cause for many diseases</p>
     <p class="hero__description">
-      Turn on to productivity
-      with Stress tracker.
+      Let's monitor stress and follow relaxation aids to keep well on our mental health.
     </p>
-    <p class="hero__description">Do you want to figure out your Stress? Well, what are you waiting for</p>
+    <p class="hero__description">Enable 'Monitor My Stress' by clicking link below</p>
     <div class="center">
       <button id="startStopBtn" type="button" class="btn btn-primary" onclick="startStopCaptureImage(event)">Monitor My
         Stress</button>
     </div>
+    <figure class="highcharts-figure">
+      <div id="container" style="width:100%;height:280px;"></div>
+      
+    </figure>
+    <!--<div class="MT15">
+      <h4 class="tplhead" style="margin-bottom:5px;"><b>Metrics</b></h4>
+      <table cellpadding="0" cellspacing="0" width="70%" class="table">
+        <tbody>
+          <tr>
+            <td><span class="txt10">Users Actively Monitoring Stress</span></td>
+            <td colspan="2"><b>30000</b></td>
+          </tr>
+          <tr>
+            <td>Users visited aid today</td>
+            <td colspan="2"><b>500</b></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>-->
   </div>
 </section>
+
 <script type="text/javascript">
   // Select Body Element (Both Is Good)
   // const body = document.querySelector('.body');

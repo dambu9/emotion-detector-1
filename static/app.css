@@ -415,3 +415,175 @@
 	width: 40px;
 }
 
+.green {
+  color: #24c279 !important;
+}
+
+.red {
+  color: #bc2929 !important;
+}
+
+.metric {
+  float: left;
+  margin-right: 50px;
+  background-color: #fff;
+  border-radius: 10px 10px 10px 10px;
+  box-shadow: 0px 0px 15px #a9bacb;
+  width: 270px;
+  margin-left: 10px;
+  margin-top:5px;
+  overflow: hidden;
+}
+.metric .metric-inner header.metric-header {
+  overflow: hidden;
+  margin: 0;
+  border-bottom: 1px solid #f0f0f0;
+  height: 45px;
+  padding: 10px;
+  line-height: 60px;
+  width: 100%;
+}
+
+.metric .metric-inner header.metric-header-1 {
+  overflow: hidden;
+  margin: 0;
+  border-bottom: 1px solid #f0f0f0;
+  height: 65px;
+  padding: 10px;
+  line-height: 60px;
+  width: 100%;
+}
+.metric .metric-inner header.metric-header-1 h1.metric-title {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  color: #666;
+  display: block;
+  text-align: center;
+  font-family: Helvetica;
+  font-weight: 400;
+  font-size: 22px;
+}
+
+.metric .metric-inner header.metric-header h1.metric-title {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  color: #666;
+  display: block;
+  text-align: center;
+  font-family: Helvetica;
+  font-weight: 400;
+  font-size: 22px;
+}
+.metric .metric-inner .metric-body {
+  width: 100%;
+  height: 210px;
+  overflow: hidden;
+}
+.metric .metric-inner .metric-body h1,
+.metric .metric-inner .metric-body h2,
+.metric .metric-inner .metric-body h3,
+.metric .metric-inner .metric-body h4 {
+  margin: 0;
+  padding: 0;
+  font-family: Helvetica;
+  font-weight: 400;
+  color: #444;
+  text-align: center;
+}
+.metric .metric-inner .metric-body h1 {
+  font-size: 70px;
+  font-weight: 300;
+}
+.metric .metric-inner .metric-body h1.primary-value {
+  color: #5bc1de;
+}
+.metric .metric-inner .metric-body h2 {
+  color: #888;
+  font-family: Helvetica;
+  font-weight: 300;
+  font-size: 28px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.metric .metric-inner .metric-body h3 {
+  font-size: 22px;
+  font-weight: 500;
+  color: #666;
+}
+.metric .metric-inner .metric-body h4 {
+  font-size: 14px;
+  color: #666;
+}
+.metric .metric-inner .viz-basic {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.metric .metric-inner .viz-basic .value {
+  text-align: center;
+}
+.metric .metric-inner .viz-basic-with-7-and-40-day-comparison {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
+.metric .metric-inner .viz-basic-with-7-and-40-day-comparison .value {
+  width: 100%;
+}
+.metric .metric-inner .viz-basic-with-7-and-40-day-comparison .value .comparison_wrapper {
+  padding-top: 15px;
+  width: 90%;
+  margin: 0px auto;
+}
+.metric .metric-inner .viz-basic-with-7-and-40-day-comparison .value .comparison_wrapper .left_comparison {
+  float: left;
+  margin-left: -10px;
+  width: 50%;
+}
+.metric .metric-inner .viz-basic-with-7-and-40-day-comparison .value .comparison_wrapper .right_comparison {
+  float: right;
+  margin-left: -10px;
+  width: 50%;
+}
+.metric .metric-inner .viz-line-chart {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.metric .metric-inner .viz-line-chart .value .chart {
+  width: 100%;
+  height: 100px;
+}
+.metric .metric-inner .viz-column-chart {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.metric .metric-inner .viz-column-chart .value .chart {
+  width: 100%;
+  height: 200px;
+}
+
+.divider{
+  border-left: 1px solid #DDD;
+}
