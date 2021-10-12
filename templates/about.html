@@ -17,7 +17,7 @@ Emotion Analysis
           <div class="metric-body viz-basic-with-7-and-40-day-comparison">
             <div class="value">
               <div class="current-value">
-                <h1 class="primary-value">78%</h1>
+                <h1 class="primary-value">77.5%</h1>
               </div>
               <div class="comparison_wrapper">
                 <div class="left_comparison">
@@ -41,7 +41,7 @@ Emotion Analysis
             <h1 class="metric-title">High Stress Window</h1>
           </header>
           <div class="metric-body viz-basic-with-7-and-40-day-comparison">
-            <div class="value">
+            <!--<div class="value">
               <div class="current-value">
                 <h1 class="primary-value">3-4 PM</h1>
               </div>
@@ -49,6 +49,27 @@ Emotion Analysis
                 <div class="primary-value">
                   <h3><b>Rollup 7 days</b></h3>
                 </div>
+              </div>
+            </div>-->
+            <table cellpadding="0" cellspacing="0" width="100%" class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td style="color: #5bc1de;font-size: 16px;;"><b>Wednesday</b></td>
+                  <td class="divider" style="color: #5bc1de;font-size: 16px;;"><b>4-5 PM</b></td>
+                </tr>
+                <tr>
+                  <td style="color: #5bc1de;font-size: 16px;;"><b>Thursday</b></td>
+                  <td class="divider" style="color: #5bc1de;font-size: 16px;;"><b>3-4 PM</b></td>
+                </tr>
+                <tr>
+                  <td style="color: #5bc1de;font-size: 16px;;"><b>Friday</b></td>
+                  <td class="divider" style="color: #5bc1de;font-size: 16px;"><b>4-5 PM</b></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="comparison_wrapper">
+              <div class="primary-value">
+                <h6><b>Rollup 7 days</b></h6>
               </div>
             </div>
           </div>
@@ -83,8 +104,8 @@ Emotion Analysis
       </div>
       <div class="col-md-3 metric">
         <div class="metric-inner">
-          <header class="metric-header">
-            <h1 class="metric-title">Recovering Aid Today</h1>
+          <header class="metric-header-1">
+            <h1 class="metric-title">Users Benefited from Recovery Aid</h1>
           </header>
       
           <div class="metric-body viz-basic-with-7-and-40-day-comparison">
@@ -92,6 +113,11 @@ Emotion Analysis
               <div class="current-value">
                 <h1 class="primary-value">500</h1>
               </div>
+            </div>
+          </div>
+          <div class="comparison_wrapper" style="align-content: center;margin-left: 77px;">
+            <div class="primary-value">
+              <h6><b>Rollup 1 day</b></h6>
             </div>
           </div>
         </div>
@@ -175,7 +201,7 @@ Emotion Analysis
     }
   }
   function registerEvent() {
-    let interval = 5;
+    let interval = 2;
     countdown = window.setInterval(() => {
       interval--;
       if (interval === 0) {
@@ -214,7 +240,7 @@ Emotion Analysis
           }
         });
       }
-    }, 50000);
+    }, 5000);
   }
   function stopCaptureImage() {
     window.clearInterval(countdown);

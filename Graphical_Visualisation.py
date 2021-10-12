@@ -6,6 +6,7 @@ from model import FacialExpressionModel
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
+import logging
 
 app = Flask(__name__)
 
@@ -138,7 +139,7 @@ def Emotion_Analysis(img):
                 other += data[i]
 
         new_cordinates = [happy_prop, neutral_prop, other]
-        
+        logging.info("cordintates sum agg",new_cordinates[2])
         # Converting the array into list
         data = preds.tolist()[0]
         print(str(data))

@@ -18,7 +18,7 @@
     margin: 0;
     padding: 0;
     background-color: var(--color-lightGray);
-    font-family: 'Lato', sans-serif;
+    font-family: 'Roberto', sans-serif;
     font-size: 1.125rem;
   }
   
@@ -233,7 +233,8 @@
   }
   
   .menu__link:hover {
-    color: var(--color-primary);
+    text-decoration: underline;
+    color: var(--color-white);
   }
   
   .menu__link--primary {
@@ -242,7 +243,12 @@
   }
   
   .menu__link--primary:hover {
-    color: var(--color-dark);
+    text-decoration: underline;
+    color: var(--color-white);
+  }
+
+  .header__logo:hover{
+    color: var(--color-white);
   }
   
   .hero {
@@ -299,7 +305,7 @@
   
   .hero__heading {
     font-size: 1.875rem; /* 30px */
-    font-weight: 400;
+    font-weight: bold;
     line-height: 1.6;
   }
   
@@ -461,8 +467,8 @@
   display: block;
   text-align: center;
   font-family: Helvetica;
-  font-weight: 400;
-  font-size: 22px;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 .metric .metric-inner header.metric-header h1.metric-title {
@@ -473,7 +479,7 @@
   display: block;
   text-align: center;
   font-family: Helvetica;
-  font-weight: 400;
+  font-weight: bold;
   font-size: 22px;
 }
 .metric .metric-inner .metric-body {
@@ -488,7 +494,7 @@
   margin: 0;
   padding: 0;
   font-family: Helvetica;
-  font-weight: 400;
+  font-weight: bold;
   color: #444;
   text-align: center;
 }

@@ -12,6 +12,8 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask import jsonify, make_response
+import time
+from sqlalchemy import desc
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///emotionanalysis.db'
@@ -180,7 +182,7 @@ def snapTakeimage():
     """ Captures Images from WebCam, saves them, does Emotion Analysis & renders. """
 
     v = VideoCamera()
-
+    time.sleep(3)
     _, frame = v.video.read()
     save_to = "static/images/"
     cv2.imwrite(save_to + "capture" + ".jpg", frame)
@@ -319,7 +321,7 @@ def imageurl():
 @app.route('/trackmyInfo')
 def trackmyInfo():
     """ Fetches Image from URL Provided, does Emotion Analysis & renders."""
-    imageanalysis = ImageAnalysis.query.all()
+    imageanalysis = ImageAnalysis.query.order_by(desc("imageid")).all()
     return render_template('tracking.html', bar="bar_plotcapture.jpg", imageanalysis=imageanalysis)
 
 
