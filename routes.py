@@ -21,6 +21,9 @@ app.config['SECRET_KEY'] = 'ec9439cfc6c796ae2029594d'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
+@app.before_first_request
+def create_database():
+     db.create_all()
 
 class EmtotionAnalysis(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
@@ -182,7 +185,7 @@ def snapTakeimage():
     """ Captures Images from WebCam, saves them, does Emotion Analysis & renders. """
 
     v = VideoCamera()
-    time.sleep(3)
+    time.sleep(5)
     _, frame = v.video.read()
     save_to = "static/images/"
     cv2.imwrite(save_to + "capture" + ".jpg", frame)
